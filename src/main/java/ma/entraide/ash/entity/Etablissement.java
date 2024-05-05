@@ -46,4 +46,8 @@ public class Etablissement {
 
     @OneToMany(mappedBy = "etablissement", cascade = CascadeType.DETACH)
     private List<Beneficiaire> beneficiaires = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "programme_id")
+    private Programme programme;
 }

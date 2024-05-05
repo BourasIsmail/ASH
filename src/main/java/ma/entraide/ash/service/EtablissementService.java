@@ -37,4 +37,30 @@ public class EtablissementService {
     public Etablissement saveEtablissement(Etablissement etab) {
         return etablissementRepo.save(etab);
     }
+
+    public Etablissement updateEtablissement(Long id, Etablissement etab) {
+        Etablissement updatedEtab = getEtablissementById(id);
+
+        updatedEtab.setNomEtablissement(etab.getNomEtablissement());
+        updatedEtab.setNomDirecteur(etab.getNomDirecteur());
+        updatedEtab.setTelDirecteur(etab.getTelDirecteur());
+        updatedEtab.setEmail(etab.getEmail());
+        updatedEtab.setMilieu(etab.getMilieu());
+        updatedEtab.setDispoConditionStruct(etab.isDispoConditionStruct());
+        updatedEtab.setDispoConditionFonc(etab.isDispoConditionFonc());
+        updatedEtab.setRemarque(etab.getRemarque());
+        updatedEtab.setSituation(etab.getSituation());
+        updatedEtab.setCodeAutorisation(etab.getCodeAutorisation());
+        updatedEtab.setAssociation(etab.getAssociation());
+        updatedEtab.setBeneficiaires(etab.getBeneficiaires());
+
+        return etablissementRepo.save(updatedEtab);
+    }
+
+    public void deleteEtablissement(Long id) {
+        Etablissement etab = getEtablissementById(id);
+        etablissementRepo.delete(etab);
+    }
+
+
 }
