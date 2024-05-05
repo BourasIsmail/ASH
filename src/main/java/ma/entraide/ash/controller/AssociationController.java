@@ -28,13 +28,14 @@ public class AssociationController {
     }
 
     @GetMapping
-    public Page<Association> getAllAssociations(@RequestParam(defaultValue = "0") Integer page,
+    public ResponseEntity<Page<Association>> getAllAssociations(@RequestParam(defaultValue = "0") Integer page,
                                                 @RequestParam(defaultValue = "10") Integer size,
                                                 @RequestParam(defaultValue = "nomAssociation") String sortField,
                                                 @RequestParam(defaultValue = "asc") Sort.Direction sortDirection) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortField));
+        Page<Association> pages= associationService.findAllAssociations(pageable);
 
-        return associationService.findAllAssociations(pageable);
+        return ResponseEntity.ok(pages);
     }
 
     @GetMapping("/{id}")

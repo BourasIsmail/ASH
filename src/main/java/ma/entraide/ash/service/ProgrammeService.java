@@ -40,7 +40,7 @@ public class ProgrammeService {
 
     public Programme updateProgramme(Long id,Programme programme) {
         Programme updatedProgramme = findProgrammeById(id);
-        updatedProgramme.setOption(programme.getOption());
+        updatedProgramme.setNomProgramme(programme.getNomProgramme());
         return programmeRepo.save(updatedProgramme);
     }
 

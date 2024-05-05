@@ -40,7 +40,7 @@ public class PrestationService {
 
     public Prestation updatePrestation(Long id,Prestation prestation) {
         Prestation updatedPrestation = findPrestationById(id);
-        updatedPrestation.setOption(prestation.getOption());
+        updatedPrestation.setNomPrestation(prestation.getNomPrestation());
         return prestationRepo.save(updatedPrestation);
     }
 

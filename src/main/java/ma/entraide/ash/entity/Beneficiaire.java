@@ -49,7 +49,9 @@ public class Beneficiaire {
     private Programme programme;
 
     @ManyToMany(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "prestaion_id")
+    @JoinTable(name = "beneficiaire_prestation", // Name of the join table
+            joinColumns = @JoinColumn(name = "beneficiaire_id"),
+            inverseJoinColumns = @JoinColumn(name = "prestation_id"))
     private List<Prestation> prestations = new ArrayList<>();
 
 }

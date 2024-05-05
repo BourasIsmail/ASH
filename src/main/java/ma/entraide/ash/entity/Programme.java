@@ -15,7 +15,7 @@ public class Programme {
     @Column(name = "programme_id")
     private Long id;
 
-    private String option;
+    private String nomProgramme;
 
 
 }

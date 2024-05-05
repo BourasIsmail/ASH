@@ -1,9 +1,17 @@
 package ma.entraide.ash.controller;
 
+import ma.entraide.ash.entity.Etablissement;
+import ma.entraide.ash.service.EtablissementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -14,24 +22,26 @@ public class EtablissementController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Etablissement>> getAllEtablissements() {
-        List<Etablissement> etablissements = etablissementService.getAllEtablissements();
+        List<Etablissement> etablissements = etablissementService.getAllEtablissement();
         return ResponseEntity.ok(etablissements);
     }
 
     @GetMapping
-    public Page<Etablissement> getAllEtablissements(@RequestParam(defaultValue = "0") Integer page,
+    public ResponseEntity<Page<Etablissement>> getAllEtablissements(@RequestParam(defaultValue = "0") Integer page,
                                                     @RequestParam(defaultValue = "10") Integer size,
                                                     @RequestParam(defaultValue = "nomEtablissement") String sortField,
                                                     @RequestParam(defaultValue = "asc") Sort.Direction sortDirection) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortField));
 
-        return etablissementService.findAllEtablissements(pageable);
+        Page<Etablissement> pages = etablissementService.findAllEtablissement(pageable);
+
+        return ResponseEntity.ok(pages);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Etablissement> getEtablissementById(@PathVariable Long id) {
         try {
-            Etablissement etablissement = etablissementService.findEtablissementById(id);
+            Etablissement etablissement = etablissementService.getEtablissementById(id);
             return ResponseEntity.ok(etablissement);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -15,5 +15,5 @@ public class Prestation {
     @Column(name = "prestation_id")
     private Long id;
 
-    private String option;
+    private String nomPrestation;
 }
