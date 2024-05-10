@@ -31,8 +31,9 @@ public class AssociationController {
     public ResponseEntity<Page<Association>> getAllAssociations(@RequestParam(defaultValue = "0") Integer page,
                                                 @RequestParam(defaultValue = "10") Integer size,
                                                 @RequestParam(defaultValue = "nomAssociation") String sortField,
-                                                @RequestParam(defaultValue = "asc") Sort.Direction sortDirection) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortField));
+                                                @RequestParam(defaultValue = "asc") String sortDirection) {
+        Sort.Direction direction = Sort.Direction.valueOf(sortDirection.toUpperCase()); // Ensure uppercase for case-insensitive matching
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
         Page<Association> pages= associationService.findAllAssociations(pageable);
 
         return ResponseEntity.ok(pages);

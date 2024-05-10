@@ -30,7 +30,8 @@ public class PrestationController {
                                                            @RequestParam(defaultValue = "10") Integer size,
                                                            @RequestParam(defaultValue = "nomPrestation") String sortField,
                                                            @RequestParam(defaultValue = "asc") String sortDirection) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortField));
+        Sort.Direction direction = Sort.Direction.valueOf(sortDirection.toUpperCase()); // Ensure uppercase for case-insensitive matching
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
         Page<Prestation> pages = prestationService.findAllPrestations(pageable);
         return ResponseEntity.ok(pages);
     }

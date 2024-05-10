@@ -33,5 +33,10 @@ public class UserInfo {
     @Size(min = 6)
     private String password;
 
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "province_id")
+    private Region province;
+
+
 
 }

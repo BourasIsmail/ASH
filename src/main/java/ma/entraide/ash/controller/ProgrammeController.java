@@ -30,7 +30,8 @@ public class ProgrammeController {
                                                            @RequestParam(defaultValue = "10") Integer size,
                                                            @RequestParam(defaultValue = "nomProgramme") String sortField,
                                                            @RequestParam(defaultValue = "asc") String sortDirection) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortField));
+        Sort.Direction direction = Sort.Direction.valueOf(sortDirection.toUpperCase()); // Ensure uppercase for case-insensitive matching
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
         Page<Programme> pages = programmeService.findAllProgrammes(pageable);
         return ResponseEntity.ok(pages);
     }

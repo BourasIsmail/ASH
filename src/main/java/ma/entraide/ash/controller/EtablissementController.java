@@ -30,8 +30,9 @@ public class EtablissementController {
     public ResponseEntity<Page<Etablissement>> getAllEtablissements(@RequestParam(defaultValue = "0") Integer page,
                                                     @RequestParam(defaultValue = "10") Integer size,
                                                     @RequestParam(defaultValue = "nomEtablissement") String sortField,
-                                                    @RequestParam(defaultValue = "asc") Sort.Direction sortDirection) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortField));
+                                                    @RequestParam(defaultValue = "asc") String sortDirection) {
+        Sort.Direction direction = Sort.Direction.valueOf(sortDirection.toUpperCase()); // Ensure uppercase for case-insensitive matching
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
 
         Page<Etablissement> pages = etablissementService.findAllEtablissement(pageable);
 

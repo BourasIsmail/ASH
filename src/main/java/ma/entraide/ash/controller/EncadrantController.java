@@ -29,8 +29,9 @@ public class EncadrantController {
     public ResponseEntity<Page<Encadrant>> getEncadrants(@RequestParam(defaultValue = "0") Integer page,
                                                        @RequestParam(defaultValue = "10") Integer size,
                                                        @RequestParam(defaultValue = "nom") String sortField,
-                                                       @RequestParam(defaultValue = "asc") Sort.Direction sortDirection) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortField));
+                                                       @RequestParam(defaultValue = "asc") String sortDirection) {
+        Sort.Direction direction = Sort.Direction.valueOf(sortDirection.toUpperCase()); // Ensure uppercase for case-insensitive matching
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
         Page<Encadrant> pages = encadrantService.findAllEncadrants(pageable);
         return ResponseEntity.ok(pages);
     }
