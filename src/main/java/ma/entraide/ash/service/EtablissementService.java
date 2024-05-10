@@ -62,5 +62,9 @@ public class EtablissementService {
         etablissementRepo.delete(etab);
     }
 
+    public List<Etablissement> getEtablissementByAssociation(String association) {
+        return etablissementRepo.findByNomAssociation(association);
+    }
+
 
 }

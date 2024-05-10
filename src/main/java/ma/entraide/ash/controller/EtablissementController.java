@@ -79,4 +79,15 @@ public class EtablissementController {
         }
     }
 
+    @GetMapping("/{nomAssociation}")
+    public ResponseEntity<?> getEtablissementByNomAssociation(@PathVariable String nomAssociation) {
+        try {
+            List<Etablissement> etablissements = etablissementService.getEtablissementByAssociation(nomAssociation);
+            return ResponseEntity.ok(etablissements);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
