@@ -50,4 +50,10 @@ public class ProvinceService {
         Province province = getProvinceById(id);
         provinceRepo.delete(province);
     }
+
+    public List<Province> getProvinceByRegion(Long region) {
+        return provinceRepo.findByRegionId(region);
+    }
+
+
 }

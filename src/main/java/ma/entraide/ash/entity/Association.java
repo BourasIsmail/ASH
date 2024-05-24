@@ -39,15 +39,16 @@ public class Association {
 
     private boolean benefPremFois;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private double montantPropose;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String rib;
 
     //foreign keys
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "province_id")
     private Province province;
+
 
 }

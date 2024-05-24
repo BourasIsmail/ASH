@@ -49,7 +49,7 @@ public class AssociationController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/createAssociation")
     public ResponseEntity<Association> addAssociation(@RequestBody Association association) {
         try {
             Association newAssociation = associationService.saveAssociation(association);

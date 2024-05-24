@@ -20,6 +20,7 @@ public class AssociationService {
     @Autowired
     private ProvinceRepo provinceRepo;
 
+
     public List<Association> getAllAssociations() {
         return associationRepo.findAll();
     }
@@ -39,10 +40,16 @@ public class AssociationService {
     }
 
     public Association saveAssociation(Association association) {
-        Province province = provinceRepo.findById(association.getProvince().getId())
-                .orElseThrow(()-> new ResourceNotFoundException("Province not found"));
-        association.setProvince(province);
-        return associationRepo.save(association);
+        try {
+            Province province = provinceRepo.findById(association.getProvince().getId())
+                    .orElseThrow(()-> new ResourceNotFoundException("Province not found"));
+            association.setProvince(province);
+            association.setBenefPremFois(true);
+            return associationRepo.save(association);
+        }catch (Exception e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        }
+
     }
 
     public Association updateAssociation(Long id,Association association) {

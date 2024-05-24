@@ -46,6 +46,16 @@ public class ProvinceController {
         }
     }
 
+    @GetMapping("/region/{id}")
+    public ResponseEntity<List<Province>> getProvinceByRegionId(@PathVariable Long id) {
+        try {
+            List<Province> provinces = provinceService.getProvinceByRegion(id);
+            return ResponseEntity.ok(provinces);
+        } catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Province> addProvince(@RequestBody Province province) {
         try {
